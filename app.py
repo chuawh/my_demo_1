@@ -7,7 +7,7 @@ app = Flask(__name__)
 def generate_ticket_id():
     """Generate a random ticket_ID in the format Finance-XXX"""
     random_number = random.randint(100, 999)  # Generate a 3-digit number
-    return f"Finance-{random_number}"
+    return f"Finance-{random_number}" #Finance
 
 def generate_transaction_id():
     """Generate a random ticket_ID in the format Finance-XXX"""
