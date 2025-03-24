@@ -1,8 +1,15 @@
 from flask import Flask, request, jsonify
 import random
+import os
 
 
 app = Flask(__name__)
+
+#Application 
+APP_ID = os.getenv("SENDBIRD_APP_ID")
+API_TOKEN = os.getenv("SENDBIRD_API_TOKEN")
+AI_Agent_ID = os.getenv("SENDBIRD_AI_Agent_ID")
+
 
 def generate_ticket_id():
     """Generate a random ticket_ID in the format Finance-XXX"""
@@ -81,6 +88,29 @@ def create_ticket():
             "Assigned": "Guarav"
         }), 200
     
+
+@app.route('/send_syllabus', methods=['POST'])
+def send_syllabus():
+    
+        data = request.get_json()
+        print("request: ", data)
+        channel_url = data["channel_url"]
+
+        
+        url = f"https://api-{APP_ID}.sendbird.com/v3/group_channels/{channel_url}/messages"
+        headers = {
+          "Api-Token": API_TOKEN,
+          "Content-Type": "application/json"
+        }
+        payload = {
+            "message_type": "FILE",
+            "user_id": AI_Agent_ID,
+            "files": {
+               "url": "https://drive.google.com/file/d/19bjgrVVLJUaFZBaCHlo4cO9KThm3bY-s/view?usp=sharing",
+               "file_name": "Syllabus",
+               "file_type": "pdf"
+            },
+        }
 
 
 
