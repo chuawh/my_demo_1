@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 import random
 import os
+import requests
 
 
 app = Flask(__name__)
@@ -111,6 +112,12 @@ def send_syllabus():
                "file_type": "pdf"
             },
         }
+
+        # Sending the message request
+        response = requests.post(url, json=payload, headers=headers)
+
+        # Print response
+        print(response.status_code, response.json())
 
 
 
